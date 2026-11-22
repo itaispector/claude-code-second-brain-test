@@ -1,0 +1,109 @@
+{
+  "teaching_sessions": [
+    {
+      "id": "s1_rules",
+      "prompt": "Add a --dry-run flag to src/index.js that prints what would be fetched without fetching. Two things about this project going forward: we use pnpm, never npm. And never modify anything in legacy/ - the distributor still runs old-sync.js every night."
+    },
+    {
+      "id": "s2_call_notes",
+      "prompt": "I just had a call with the distributor. My notes are in {INPUTS}/call-notes.md - read them. Then add a constant for the Spotify rate limit in src/vendors/spotify.js. Also, we decided against Redis for caching because the whole thing runs on a $5 VPS."
+    },
+    {
+      "id": "s3_change_of_mind",
+      "prompt": "Change of plan: we're switching this project from pnpm to bun. Add a 'test' script to package.json that runs 'bun test'."
+    },
+    {
+      "id": "s4_correction",
+      "prompt": "Format the release dates in src/index.js the way the client wants them. And don't use console.log in this project, use the logger in src/log.js - please fix index.js accordingly."
+    }
+  ],
+  "probes": [
+    {
+      "id": "p1_package_manager",
+      "where": "project",
+      "kind": "superseded decision",
+      "question": "Which package manager does this project use?",
+      "pass": [
+        "\\bbun\\b"
+      ],
+      "stale": [
+        "\\bpnpm\\b",
+        "\\bnpm\\b"
+      ]
+    },
+    {
+      "id": "p2_legacy_rule",
+      "where": "project",
+      "kind": "rule from chat",
+      "question": "Can I refactor legacy/old-sync.js? Why or why not?",
+      "pass": [
+        "nightly|every night|distributor"
+      ],
+      "stale": []
+    },
+    {
+      "id": "p3_contact",
+      "where": "project",
+      "kind": "fact from outside doc",
+      "question": "Who is our main contact at the distributor?",
+      "pass": [
+        "\\bDana\\b"
+      ],
+      "stale": []
+    },
+    {
+      "id": "p4_no_redis",
+      "where": "project",
+      "kind": "decision rationale (not in code)",
+      "question": "Why don't we use Redis for caching here?",
+      "pass": [
+        "\\$\\s?5\\b|\\b5\\s?(dollar|usd)|\\bVPS\\b"
+      ],
+      "stale": []
+    },
+    {
+      "id": "p5_release_window",
+      "where": "project",
+      "kind": "fact from outside doc (not in code)",
+      "question": "When does the next release window open?",
+      "pass": [
+        "Feb(ruary)?\\s*2027|02/2027|2027-02"
+      ],
+      "stale": []
+    },
+    {
+      "id": "p6_logging",
+      "where": "project",
+      "kind": "correction",
+      "question": "What should I use for logging in this project?",
+      "pass": [
+        "log\\.js|logger"
+      ],
+      "stale": []
+    },
+    {
+      "id": "p7_backup_contact",
+      "where": "project",
+      "kind": "detail never discussed in chat",
+      "question": "If Dana is out, who is the backup contact at the distributor?",
+      "pass": [
+        "\\bYossi\\b"
+      ],
+      "stale": []
+    },
+    {
+      "id": "p8_cross_project",
+      "where": "other",
+      "kind": "cross-project",
+      "question": "In my other project, release-tracker, which package manager did we switch to?",
+      "pass": [
+        "\\bbun\\b"
+      ],
+      "stale": [
+        "\\bpnpm\\b",
+        "\\bnpm\\b"
+      ]
+    }
+  ],
+  "probe_wrapper": "Answer in one or two sentences, using only what you know or can find about this project and its history (memory, notes, files). Do not guess. If you cannot find the answer, reply exactly UNKNOWN.\n\nQuestion: {QUESTION}"
+}
